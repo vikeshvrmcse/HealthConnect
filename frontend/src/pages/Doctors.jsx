@@ -6,6 +6,7 @@ const Doctors = () => {
   const{ speciality }=useParams()
   const { doctors }=useContext(AppContext)
   const [filtersDoc, setFiltersDoc] = useState([])
+  const [showFilter, setShowFilter]=useState(false)
   const navigate=useNavigate()
   const applyFilter=()=>{
     if(speciality){
@@ -20,9 +21,11 @@ const Doctors = () => {
   },[doctors, speciality])
   return (
     <div >
-      <p className='text-gray-600'>Browse through the doctors specialist</p>
-      <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
-        <div className='flex flex-col gap-4 text-sm text-gray-600'>
+      <p className='text-gray-600 mt-8 font-semibold text-xl border-b-2 mb-6'>Browse through the doctors specialist</p>
+      <button className={`${showFilter?`bg-green-700 border-2 rounded p-2.5 text-green-200 w-48`:'border-2 rounded p-2.5 hover:bg-green-500 w-48'}`} onClick={(()=>setShowFilter(e=>!e))}>Filters</button>
+      <div className='flex flex-col sm:flex-row items-start gap-5 mt-8'>
+        
+        <div className={` flex-row gap-4 text-sm text-gray-600 ${!showFilter?'hidden':'flex'}`}>
           <p onClick={()=>speciality==='General physician' ? navigate('/doctors') : navigate('/doctors/General physician')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='General physician' ? 'bg-slate-700 text-white' : ''}`}>General Physician</p>
           <p onClick={()=>speciality==='Gynecologist' ? navigate('/doctors') : navigate('/doctors/Gynecologist')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='Gynecologist' ? 'bg-slate-700 text-white' : ''}`}>Gynecologist</p>
           <p onClick={()=>speciality==='Dermatologist' ? navigate('/doctors') : navigate('/doctors/Dermatologist')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality==='Dermatologist' ? 'bg-slate-700 text-white' : ''}`}>Dermatologist</p>
